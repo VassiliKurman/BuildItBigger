@@ -15,9 +15,11 @@
  */
 package com.udacity.gradle.builditbigger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,16 +36,16 @@ import vkurman.javajokes.JokesProvider;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private JokesProvider jokesProvider;
+//    private JokesProvider jokesProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(jokesProvider == null) {
-            jokesProvider = new JokesProvider();
-        }
+//        if(jokesProvider == null) {
+//            jokesProvider = new JokesProvider();
+//        }
     }
 
 
@@ -70,8 +72,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Intent intent = new Intent(this, JokeActivity.class);
-        intent.putExtra(JokeActivity.JOKE_EXTRA, jokesProvider.getJoke());
-        startActivity(intent);
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, ""));
+
+//        String joke = null;
+//        Intent intent = new Intent(this, JokeActivity.class);
+////        intent.putExtra(JokeActivity.JOKE_EXTRA, jokesProvider.getJoke());
+//        intent.putExtra(JokeActivity.JOKE_EXTRA, joke);
+//        startActivity(intent);
     }
 }
