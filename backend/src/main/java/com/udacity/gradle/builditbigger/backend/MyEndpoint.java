@@ -35,6 +35,8 @@ import vkurman.javajokes.JokesProvider;
 )
 public class MyEndpoint {
 
+    private JokesProvider jokesProvider;
+
     /** A simple endpoint method that takes a name and says Hi back */
     @ApiMethod(name = "sayHi")
     public MyBean sayHi(@Named("name") String name) {
@@ -50,7 +52,10 @@ public class MyEndpoint {
     @ApiMethod(name = "sayJoke")
     public MyBean sayJoke() {
         MyBean response = new MyBean();
-        String joke = new JokesProvider().getJoke();
+        if(jokesProvider == null) {
+            jokesProvider = new JokesProvider();
+        }
+        String joke = jokesProvider.getJoke();
         response.setData(joke);
         return response;
     }
