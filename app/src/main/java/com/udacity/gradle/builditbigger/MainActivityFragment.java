@@ -44,7 +44,7 @@ public class MainActivityFragment extends Fragment {
 
         AdView mAdView = root.findViewById(R.id.adView);
 
-//        MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(getActivity(), "ca-app-pub-3940256099942544~3347511713");
 
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
@@ -53,7 +53,7 @@ public class MainActivityFragment extends Fragment {
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
         // TODO loadAd() crashes app, needs investigation
-//        mAdView.loadAd(adRequest);
+        mAdView.loadAd(adRequest);
         return root;
     }
 }

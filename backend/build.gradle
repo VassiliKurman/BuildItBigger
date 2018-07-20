@@ -34,3 +34,9 @@ dependencies {
     // Dependency for Java Library STEP 3
     implementation project(':javajokes')
 }
+
+appengine {
+    run {
+        host = "0.0.0.0"
+    }
+}

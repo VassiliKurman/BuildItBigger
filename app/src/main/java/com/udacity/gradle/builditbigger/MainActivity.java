@@ -36,16 +36,16 @@ import vkurman.javajokes.JokesProvider;
  */
 public class MainActivity extends AppCompatActivity {
 
-//    private JokesProvider jokesProvider;
+    private JokesProvider jokesProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        if(jokesProvider == null) {
-//            jokesProvider = new JokesProvider();
-//        }
+        if(jokesProvider == null) {
+            jokesProvider = new JokesProvider();
+        }
     }
 
 
@@ -74,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
     public void tellJoke(View view) {
         new EndpointsAsyncTask().execute(new Pair<Context, String>(this, ""));
 
-//        String joke = null;
-//        Intent intent = new Intent(this, JokeActivity.class);
-////        intent.putExtra(JokeActivity.JOKE_EXTRA, jokesProvider.getJoke());
+        String joke = null;
+        Intent intent = new Intent(this, JokeActivity.class);
+        intent.putExtra(JokeActivity.JOKE_EXTRA, jokesProvider.getJoke());
 //        intent.putExtra(JokeActivity.JOKE_EXTRA, joke);
-//        startActivity(intent);
+        startActivity(intent);
     }
 }
