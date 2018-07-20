@@ -72,12 +72,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, ""));
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "free"));
 
-        String joke = null;
-        Intent intent = new Intent(this, JokeActivity.class);
-        intent.putExtra(JokeActivity.JOKE_EXTRA, jokesProvider.getJoke());
-//        intent.putExtra(JokeActivity.JOKE_EXTRA, joke);
-        startActivity(intent);
+//        Intent intent = new Intent(this, JokeActivity.class);
+//        intent.putExtra(JokeActivity.JOKE_EXTRA, jokesProvider.getJoke());
+//        startActivity(intent);
     }
 }
