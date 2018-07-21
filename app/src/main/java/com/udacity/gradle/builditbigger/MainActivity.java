@@ -24,6 +24,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.concurrent.ExecutionException;
+
 import vkurman.androidjokes.JokeActivity;
 import vkurman.javajokes.JokesProvider;
 
@@ -72,10 +74,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "free"));
-
-//        Intent intent = new Intent(this, JokeActivity.class);
-//        intent.putExtra(JokeActivity.JOKE_EXTRA, jokesProvider.getJoke());
-//        startActivity(intent);
+        try {
+            String joke = new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "free")).get();
+            // Todo check if AsyncTask returns correct result
+            Intent intent = new Intent(this, JokeActivity.class);
+            intent.putExtra(JokeActivity.JOKE_EXTRA, joke);
+            startActivity(intent);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
