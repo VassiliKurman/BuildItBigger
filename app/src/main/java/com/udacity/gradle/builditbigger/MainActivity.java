@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     public void tellJoke(View view) {
         try {
             String joke = new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "free")).get();
-            // Todo check if AsyncTask returns correct result
+
             Intent intent = new Intent(this, JokeActivity.class);
             intent.putExtra(JokeActivity.JOKE_EXTRA, joke);
             startActivity(intent);
