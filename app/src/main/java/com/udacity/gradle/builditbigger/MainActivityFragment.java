@@ -52,7 +52,7 @@ public class MainActivityFragment extends Fragment {
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build();
-        // TODO loadAd() crashes app, needs investigation
+
         mAdView.loadAd(adRequest);
         return root;
     }

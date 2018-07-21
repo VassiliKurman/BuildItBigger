@@ -23,8 +23,8 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
     /**
      * My machine local area IPv4 address
      */
-    public static final String IP_ADDRESS = "192.168.0.20";
-    private Context context;
+    private static final String IP_ADDRESS = "192.168.0.20";
+//    private Context context;
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -45,7 +45,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
             myApiService = builder.build();
         }
 
-        context = params[0].first;
+//        context = params[0].first;
 
         try {
             return myApiService.sayJoke().execute().getData();
