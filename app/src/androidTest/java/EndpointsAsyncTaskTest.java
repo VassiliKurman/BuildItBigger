@@ -19,6 +19,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.Pair;
 
 import com.udacity.gradle.builditbigger.EndpointsAsyncTask;
+import com.udacity.gradle.builditbigger.OnAsyncTaskCompleted;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +36,7 @@ import static org.hamcrest.Matchers.is;
  */
 @RunWith(AndroidJUnit4.class)
 @SmallTest
-public class EndpointsAsyncTaskTest {
+public class EndpointsAsyncTaskTest implements OnAsyncTaskCompleted {
 
     private static final String TEST_JOKE = "My dog used to chase people on a bike a lot. It got so bad, finally I had to take his bike away.";
 
@@ -43,8 +44,7 @@ public class EndpointsAsyncTaskTest {
     public void triggerIntentTest() {
         try {
             // Retrieving joke via AsyncTask
-            String joke = new EndpointsAsyncTask().execute(new Pair<Context, String>(null, "free")).get();
-
+            String joke = new EndpointsAsyncTask(this).execute(new Pair<Context, String>(null, "free")).get();
             // Checking that actual joke is returned, meaning that string is not null and not empty
             assertThat(joke, is(TEST_JOKE));
         } catch (InterruptedException e) {
@@ -53,4 +53,7 @@ public class EndpointsAsyncTaskTest {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onTaskCompleted(String response) {}
 }
