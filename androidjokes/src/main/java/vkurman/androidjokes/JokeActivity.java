@@ -43,7 +43,7 @@ public class JokeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String joke = intent.getStringExtra(JOKE_EXTRA);
-        if(TextUtils.isEmpty(joke)) {
+        if(!TextUtils.isEmpty(joke)) {
             jokeTextView.setText(joke);
         }
     }
