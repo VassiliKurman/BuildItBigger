@@ -19,6 +19,7 @@ package vkurman.androidjokes;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -41,9 +42,8 @@ public class JokeActivity extends AppCompatActivity {
         TextView jokeTextView = findViewById(R.id.tv_joke);
 
         Intent intent = getIntent();
-        // TODO move name "joke" to appropriate location
         String joke = intent.getStringExtra(JOKE_EXTRA);
-        if(joke != null && !joke.isEmpty()) {
+        if(TextUtils.isEmpty(joke)) {
             jokeTextView.setText(joke);
         }
     }
