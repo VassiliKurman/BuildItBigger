@@ -3,7 +3,6 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Pair;
-import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -24,7 +23,15 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
      * My machine local area IPv4 address
      */
     private static final String IP_ADDRESS = "192.168.0.20";
-//    private Context context;
+    private OnAsyncTaskCompleted mOnAsyncTaskCompleted;
+
+    /**
+     * Public constructor that takes callback interface as parameter
+     * @param onAsyncTaskCompleted
+     */
+    public EndpointsAsyncTask(OnAsyncTaskCompleted onAsyncTaskCompleted) {
+        mOnAsyncTaskCompleted = onAsyncTaskCompleted;
+    }
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
@@ -45,8 +52,6 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
             myApiService = builder.build();
         }
 
-//        context = params[0].first;
-
         try {
             return myApiService.sayJoke().execute().getData();
         } catch (IOException e) {
@@ -56,6 +61,8 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
     @Override
     protected void onPostExecute(String result) {
-//        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+        if(mOnAsyncTaskCompleted != null) {
+            mOnAsyncTaskCompleted.onTaskCompleted(result);
+        }
     }
 }

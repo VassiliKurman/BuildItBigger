@@ -19,12 +19,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import java.util.concurrent.ExecutionException;
 
 import vkurman.androidjokes.JokeActivity;
 import vkurman.javajokes.JokesProvider;
@@ -36,7 +35,7 @@ import vkurman.javajokes.JokesProvider;
  * Updated by Vassili Kurman on 05/07/2018.
  * Version 1.0
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnAsyncTaskCompleted {
 
     private JokesProvider jokesProvider;
 
@@ -74,16 +73,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        try {
-            String joke = new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "free")).get();
+        new EndpointsAsyncTask(this).execute(new Pair<Context, String>(this, "free"));
+    }
 
+    @Override
+    public void onTaskCompleted(String response) {
+        if(!TextUtils.isEmpty(response)) {
             Intent intent = new Intent(this, JokeActivity.class);
-            intent.putExtra(JokeActivity.JOKE_EXTRA, joke);
+            intent.putExtra(JokeActivity.JOKE_EXTRA, response);
             startActivity(intent);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
         }
     }
 }
