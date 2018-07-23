@@ -45,6 +45,11 @@ android {
             applicationIdSuffix ".flavors.paid"
         }
     }
+    sourceSets {
+        free {
+            manifest.srcFile 'src/free/AndroidManifest.xml'
+        }
+    }
 }
 
 dependencies {
